@@ -1,0 +1,79 @@
+<h1>一覧ページ</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @present do |f| %>
+
+  <div class="field">
+    <%= f.label :送ったもの %>
+    <%= f.text_field :present_name, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :送り主の性別  %>
+    <%= f.select :sex, 
+    [["女性", "女性"], 
+    ["男性", "男性"], 
+    ["その他", "その他"]], include_blank: "選択して下さい" %>
+  </div>
+
+ 
+  <div class="field">
+    <%= f.label :受け取る人の年齢  %>
+    <%= f.number_field :age, :size => 10 %>
+  </div>
+
+  <%= f.label :sex2,"受け取る人の性別" %>
+  <%= f.select :sex2, [["女性宛て", "女性宛て"], ["男性宛て", "男性宛て"], ["その他の方宛て", "その他の方宛て"]], include_blank: "選択してください" %>
+ 
+
+  <div class="field">
+    <%= f.label :送り主と受け取る人との関係性  %>
+    <%= f.select :relation, 
+    [["家族", "家族"], 
+    ["友人", "友人"], 
+    ["恋人", "恋人"],
+    ["仕事や学校の関係者", "仕事や学校の関係者"],  
+    ["その他", "その他"]], include_blank: "選択して下さい" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :状況 %>
+    <%= f.text_field :situation, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :贈り物の価格 %>
+    <%= f.text_field :cost, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :購入した場所 %>
+    <%= f.text_field :place, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :詳細  %>
+    <%= f.text_area :about, :size => "30x2" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :画像 %>
+    <%= f.file_field :image %>
+  </div>
+
+
+  <div class='form-group'>
+  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class='form-check'>
+          <%= tag.label class: 'form-check-label' do %>
+              <%= tag.check_box class: 'form-check-input' %>
+              <%= tag.text %>
+          <% end %>
+      </div>
+  <% end %>
+
+  </div>
+   
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", presents_path %>
